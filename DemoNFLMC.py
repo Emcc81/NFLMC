@@ -6,7 +6,6 @@ from numpy import mat
 from time import time
 import numpy as np
 import matplotlib.pyplot as plt
-%matplotlib inline
 import tensorflow as tf
 import math as m
 import os
@@ -361,9 +360,10 @@ for i in range(NUM_STEPS):
         
 plt.plot(np_losses)
 plt.show()
-
+plt.savefig('loss.png', dpi=300)
 
 # Draw samples
 results = sess.run(samples)
 plt.scatter(results[-1][:,:1],results[-1][:,1:],marker='.')
 plt.show()
+plt.savefig('result_samples.png', dpi=300)
