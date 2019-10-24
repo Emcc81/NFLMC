@@ -1,7 +1,7 @@
 # NFLMC
 Dynamical sampling with Langevin Normalization Flow
 
-The demo of NFLMC code (written in python3.5) which allows researchers to run the RING example.
+The demo of NFLMC code (written in python3.5) which allows researchers to run the RING example. The Github may be not available to see the code. We can visit https://nbviewer.jupyter.org and type https://github.com/Emcc81/NFLMC/blob/master/DemoNFLMC.ipynb in the box to see the code and the result.
 
 The code is written in jupyter notebook because it is easy for researcher to debug. 
 
