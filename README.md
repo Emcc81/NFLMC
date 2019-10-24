@@ -1,4 +1,4 @@
-# NNLMC
+# NFLMC
 Dynamical sampling with Langevin Normalization Flow
 
 The demo of NFLMC code (written in python3.5) which allows researcher to run the RING example.
