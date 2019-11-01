@@ -20,7 +20,7 @@ sess = tf.InteractiveSession()
 tf.set_random_seed(0)
 DTYPE=tf.float32
 NP_DTYPE=np.float32
-MODEL = 'NFLMC' # Which Normalizing Flow to use. 'NVP' or 'MAF' or 'IAF'
+MODEL = 'NFLMC'
 TARGET_DENSITY = 'RING' 
 
 # dataset-specific settings
@@ -131,7 +131,7 @@ class LNF(bijector.Bijector):
         for i in range(self.m):
             x = array_ops.concat([x0, y1], axis=-1)
             gradient_x = DU(x, 1)
-            y1 += self.epsilon * self.epsilon / 2 * gradient_x + self.epsilon * math_ops.exp(log_scale)# * tf.random_normal([8000, 1]) 
+            y1 += self.epsilon * self.epsilon / 2 * gradient_x + self.epsilon * math_ops.exp(log_scale)
         if log_scale is not None:
             y1 *= math_ops.exp(log_scale)
         if shift is not None:
@@ -143,7 +143,7 @@ class LNF(bijector.Bijector):
         for i in range(self.m):
             y = array_ops.concat([z0, y1], axis=-1)
             gradient_y = DU(y, 0)
-            z0 += self.epsilon * self.epsilon / 2 * gradient_y + self.epsilon * math_ops.exp(log_scale1)# * tf.random_normal([8000, 1])
+            z0 += self.epsilon * self.epsilon / 2 * gradient_y + self.epsilon * math_ops.exp(log_scale1)
         if log_scale1 is not None:
             z0 *= math_ops.exp(log_scale1)
         if shift1 is not None:
@@ -165,7 +165,7 @@ class LNF(bijector.Bijector):
         for i in range(self.m):
             x = array_ops.concat([x0, y1], axis=-1)
             gradient_x = DU(x, 1)
-            y1 += self.epsilon * self.epsilon / 2 * gradient_x + self.epsilon * math_ops.exp(log_scale)# * tf.random_normal([8000, 1])
+            y1 += self.epsilon * self.epsilon / 2 * gradient_x + self.epsilon * math_ops.exp(log_scale)
             tmp += self.epsilon * self.epsilon / 2 * DDU(x,1)
         result += math_ops.log(1e-8 + math_ops.reduce_sum(tmp,axis=-1))
 
@@ -183,7 +183,7 @@ class LNF(bijector.Bijector):
         for i in range(self.m):
             y = array_ops.concat([z0, y1], axis=-1)
             gradient_y = DU(y, 0)
-            z0 += self.epsilon * self.epsilon / 2 * gradient_y + self.epsilon * math_ops.exp(log_scale1) #* tf.random_normal([8000, 1])
+            z0 += self.epsilon * self.epsilon / 2 * gradient_y + self.epsilon * math_ops.exp(log_scale1)
             tmp += math_ops.square(self.epsilon) / 2 * DDU(y,0)
         result += math_ops.log(1e-8 + math_ops.reduce_sum(tmp,axis=-1))
         return result
@@ -201,7 +201,7 @@ class LNF(bijector.Bijector):
         if log_scale is not None:
             y0 *= math_ops.exp(-log_scale)
         for i in range(self.m):
-            y0 -= self.epsilon * math_ops.exp(log_scale) #* tf.random_normal([8000, 1])
+            y0 -= self.epsilon * math_ops.exp(log_scale)
             y_ = array_ops.concat([y0, y1], axis=-1)
             gradient_y = DU(y_, 0)
             y0 -= self.epsilon * self.epsilon / 2 * gradient_y
@@ -214,7 +214,7 @@ class LNF(bijector.Bijector):
         if log_scale1 is not None:
             x1 *= math_ops.exp(-log_scale1)
         for i in range(self.m):
-            x1 -= self.epsilon *math_ops.exp(log_scale1)# * tf.random_normal([8000, 1])
+            x1 -= self.epsilon *math_ops.exp(log_scale1)
             x_ = array_ops.concat([x0, x1], axis=-1)
             gradient_x = DU(x_, 1)
             x1 -= self.epsilon * self.epsilon / 2 * gradient_x
@@ -236,7 +236,7 @@ class LNF(bijector.Bijector):
         if log_scale is not None:
             y0 *= math_ops.exp(-log_scale)
         for i in range(self.m):
-            y0 -= self.epsilon *math_ops.exp(log_scale) #* tf.random_normal([8000, 1])
+            y0 -= self.epsilon *math_ops.exp(log_scale)
             y_ = array_ops.concat([y0, y1], axis=-1)
             gradient_y = DU(y_, 0)
             y0 -= self.epsilon * self.epsilon / 2 * gradient_y
@@ -251,7 +251,7 @@ class LNF(bijector.Bijector):
         if log_scale1 is not None:
             x1 *= math_ops.exp(-log_scale1)
         for i in range(self.m):
-            x1 -= self.epsilon * math_ops.exp(log_scale1) #* tf.random_normal([8000, 1])
+            x1 -= self.epsilon * math_ops.exp(log_scale1)
             x_ = array_ops.concat([x0, x1], axis=-1)
             gradient_x = DU(x_, 1)
             x1 -= self.epsilon * self.epsilon / 2 * gradient_x
